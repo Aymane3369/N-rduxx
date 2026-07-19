@@ -7,12 +7,13 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { items, total, finalTotal } = req.body;
+    const { items, total, finalTotal, promoCode, discount } = req.body;
 
     const baseUrl = process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}`
       : 'https://n-rduxx.vercel.app';
 
+    // Créer la session Checkout
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
@@ -21,17 +22,19 @@ module.exports = async (req, res) => {
           currency: 'eur',
           product_data: {
             name: item.name,
-            description: Object.entries(item.variants || {}).map(([k, v]) => `${k}: ${v}`).join(', '),
+            description: `Réf: ${item.productId || ''}`,
           },
           unit_amount: Math.round(item.price * 100),
         },
-        quantity: item.quantity,
+        quantity: item.qty || 1,
       })),
       success_url: `${baseUrl}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/?cancel=true`,
       metadata: {
         items_count: items.length.toString(),
         total: total.toString(),
+        promo_code: promoCode || '',
+        discount: String(discount || 0),
       },
     });
 
