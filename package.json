@@ -5,3 +5,15 @@
     "stripe": "^13.0.0"
   }
 }
+{
+  "rewrites": [
+    {
+      "source": "/create-payment-intent",
+      "destination": "/api/create-payment-intent"
+    },
+    {
+      "source": "/webhook",
+      "destination": "/api/webhook"
+    }
+  ]
+}
