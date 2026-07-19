@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StyleShop · Ingénierie & Boutique</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Stripe JS -->
-  <script src="https://js.stripe.com/v3/"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    /* ---------- VOTRE CSS COMPLET ---------- */
+    /* ========== TOUT VOTRE CSS EXISTANT ========== */
     * {
       margin: 0;
       padding: 0;
@@ -531,7 +529,6 @@
       padding: 0.2rem 0.5rem;
     }
 
-    /* Carte cadeau */
     .gift-card-section {
       background: #f8f6f2;
       border-radius: 16px;
@@ -673,6 +670,7 @@
     .cart-item .item-remove:hover {
       color: #8a2a1e;
     }
+
     .cart-total {
       margin-top: 1.5rem;
       padding-top: 1rem;
@@ -686,6 +684,7 @@
       color: #c0392b;
       font-size: 0.9rem;
     }
+
     .cart-checkout {
       background: #1e1e1e;
       color: white;
@@ -958,22 +957,13 @@
       display: none;
     }
 
-    /* Styles pour Stripe Elements */
+    /* plus de #payment-element car on utilise Checkout */
     #payment-element {
-      margin: 1rem 0;
-      padding: 1rem;
-      background: #f8f6f2;
-      border-radius: 16px;
-      border: 1px solid #e8e2d6;
-    }
-    #payment-element .StripeElement {
-      padding: 0.5rem;
-      background: white;
-      border-radius: 8px;
+      display: none !important;
     }
 
     @media (max-width: 768px) {
-      .shop-header { 
+      .shop-header {
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
@@ -984,15 +974,13 @@
         text-align: center;
         margin-top: 0.3rem;
       }
-      .header-actions { 
+      .header-actions {
         order: 2;
       }
-      
       .product-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
       }
-      
       .product-grid.list-view {
         grid-template-columns: 1fr;
       }
@@ -1028,13 +1016,11 @@
         margin-top: 0;
         font-size: 0.8rem;
       }
-      
       .product-card .product-image,
       .product-card .product-image-placeholder {
         aspect-ratio: 3/4.2;
         height: auto;
       }
-      
       .product-card {
         padding: 0.6rem 0.6rem 0.8rem;
         border-radius: 14px;
@@ -1060,50 +1046,50 @@
       .badge-last {
         font-size: 0.55rem;
       }
-      
-      .toolbar { 
-        flex-direction: column; 
-        align-items: stretch; 
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
       }
-      .toolbar-left, .toolbar-right { 
-        justify-content: center; 
+      .toolbar-left,
+      .toolbar-right {
+        justify-content: center;
       }
-      .category-nav { 
-        gap: 0.2rem; 
+      .category-nav {
+        gap: 0.2rem;
       }
-      .category-nav a { 
-        font-size: 0.75rem; 
-        padding: 0.3rem 0.7rem; 
+      .category-nav a {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.7rem;
       }
-      .cart-panel { 
-        width: 100vw; 
-        max-width: 100vw; 
+      .cart-panel {
+        width: 100vw;
+        max-width: 100vw;
       }
-      .page-content { 
-        padding: 1.5rem; 
+      .page-content {
+        padding: 1.5rem;
       }
       .product-page .product-detail {
         grid-template-columns: 1fr;
         padding: 1.5rem;
       }
-      .product-page .gallery .main-image { 
-        height: 280px; 
+      .product-page .gallery .main-image {
+        height: 280px;
       }
-      .product-page .gallery .thumbnails img { 
-        height: 60px; 
+      .product-page .gallery .thumbnails img {
+        height: 60px;
       }
-      .variant-modal .modal-content { 
-        padding: 1.5rem; 
-        margin: 1rem; 
+      .variant-modal .modal-content {
+        padding: 1.5rem;
+        margin: 1rem;
       }
     }
 
     @media (max-width: 480px) {
-      body { 
-        padding: 0.5rem; 
+      body {
+        padding: 0.5rem;
       }
-      .shop-header h1 { 
-        font-size: 1.5rem; 
+      .shop-header h1 {
+        font-size: 1.5rem;
       }
       .product-grid {
         gap: 0.6rem;
@@ -1114,191 +1100,187 @@
       }
     }
 
-    .hidden { display: none !important; }
-    .text-center { text-align: center; }
-    .text-muted { color: #6f6454; }
+    .hidden {
+      display: none !important;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .text-muted {
+      color: #6f6454;
+    }
   </style>
 </head>
 <body>
-<div class="container">
+  <div class="container">
 
-  <header class="shop-header">
-    <h1 onclick="showCatalog()">Style<span>Shop</span></h1>
-    <div class="tagline"><i class="fas fa-hard-hat" style="margin-right: 6px;"></i> Ingénierie · Travaux · Boutique</div>
-    <div class="header-actions">
-      <div class="cart-icon" onclick="toggleCart()">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="badge" id="cartCount">0</span>
-      </div>
-    </div>
-  </header>
-
-  <nav class="category-nav" id="categoryNav">
-    <a class="active" data-cat="all" onclick="filterCategory('all', this)">Toutes les catégories</a>
-    <a data-cat="nouveautes" onclick="filterCategory('nouveautes', this)">Nouveautés</a>
-    <a data-cat="collections" onclick="filterCategory('collections', this)">Collections</a>
-    <a data-cat="vetements" onclick="filterCategory('vetements', this)">Vêtements</a>
-    <a data-cat="accessoires" onclick="filterCategory('accessoires', this)">Accessoires</a>
-    <a data-cat="apropos" onclick="showAbout()">À propos</a>
-  </nav>
-
-  <div class="toolbar">
-    <div class="toolbar-left">
-      <button class="active" onclick="setView('grid')" id="viewGrid"><i class="fas fa-th"></i></button>
-      <button onclick="setView('list')" id="viewList"><i class="fas fa-list"></i></button>
-      <span class="count" id="productCount">0 produits</span>
-    </div>
-    <div class="toolbar-right">
-      <select id="sortSelect" onchange="applySort()">
-        <option value="popular">⭐ Plus populaires</option>
-        <option value="price-asc">💰 Prix croissant</option>
-        <option value="price-desc">💰 Prix décroissant</option>
-        <option value="new">🆕 Nouveautés</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="catalog-view" id="catalogView">
-    <div class="product-grid" id="productGrid"></div>
-  </div>
-
-  <div class="product-page" id="productPage">
-    <button class="back-link" onclick="showCatalog()"><i class="fas fa-arrow-left"></i> Retour au catalogue</button>
-    <div class="product-detail" id="productDetail"></div>
-  </div>
-
-  <div class="page-content" id="aboutPage">
-    <h2>À propos de StyleShop</h2>
-    <p><strong>Ingénierie-Travaux</strong>, c'est bien plus qu'un simple site de vente en ligne. C'est la rencontre entre une expertise technique reconnue et une passion pour la qualité au service des particuliers et des professionnels.</p>
-    <p>D'abord spécialisée dans le <strong>domaine de l'ingénierie et des technologies</strong>, nous avons étendu notre savoir-faire à la mode et aux accessoires pour vous offrir le meilleur des deux mondes.</p>
-    
-    <div class="values">
-      <div class="value-card">
-        <i class="fas fa-hard-hat"></i>
-        <h4>Expertise technique</h4>
-        <p>La rigueur de l'ingénierie au service de la qualité</p>
-      </div>
-      <div class="value-card">
-        <i class="fas fa-handshake"></i>
-        <h4>Confiance client</h4>
-        <p>Une relation de confiance construite sur la transparence</p>
-      </div>
-      <div class="value-card">
-        <i class="fas fa-tshirt"></i>
-        <h4>Qualité produits</h4>
-        <p>Des matériaux premium et une fabrication soignée</p>
-      </div>
-      <div class="value-card">
-        <i class="fas fa-truck"></i>
-        <h4>Livraison rapide</h4>
-        <p>Expédition sous 24h et suivi en temps réel</p>
-      </div>
-      <div class="value-card">
-        <i class="fas fa-shield-alt"></i>
-        <h4>Garantie 2 ans</h4>
-        <p>Tous nos produits sont garantis 2 ans</p>
-      </div>
-      <div class="value-card">
-        <i class="fas fa-credit-card"></i>
-        <h4>Paiement sécurisé</h4>
-        <p>3/4 fois sans frais avec Klarna</p>
-      </div>
-    </div>
-
-    <p><strong>Notre force</strong> réside dans notre <strong>double compétence</strong> : la rigueur du secteur de l'ingénierie associée à la réactivité et la convivialité d'une boutique moderne. Nous mettons un point d'honneur à vous proposer des produits de qualité, des prix compétitifs et un service irréprochable.</p>
-    <p><i class="fas fa-map-marker-alt"></i> StyleShop · Avaux.vercel.app</p>
-  </div>
-
-  <!-- MODAL VARIANTES -->
-  <div class="variant-modal" id="variantModal">
-    <div class="modal-content">
-      <h2 id="variantProductName">Produit</h2>
-      <div class="product-ref" id="variantProductRef">Réf: </div>
-      <div class="product-price" id="variantProductPrice">0.00 €</div>
-      <div class="stock-info" id="variantStockInfo">En stock</div>
-      <div id="variantOptions"></div>
-      <div class="modal-actions">
-        <button class="btn-cancel" onclick="closeVariantModal()">Annuler</button>
-        <button class="btn-confirm" id="variantConfirmBtn" onclick="confirmVariantSelection()" disabled>Ajouter au panier</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANIER -->
-  <div class="cart-overlay" id="cartOverlay" onclick="if(event.target===this) toggleCart()">
-    <div class="cart-panel">
-      <div class="cart-header">
-        <h2><i class="fas fa-shopping-cart"></i> Mon panier</h2>
-        <button class="cart-close" onclick="toggleCart()">&times;</button>
-      </div>
-      <div id="cartItems"></div>
-      
-      <!-- Carte cadeau -->
-      <div class="gift-card-section" id="giftCardSection">
-        <div class="gift-title">🎁 Carte cadeau</div>
-        <div class="gift-input-group">
-          <input type="text" id="giftCodeInput" placeholder="Code cadeau (ex: JOYEUX2026)" maxlength="30">
-          <button class="gift-btn" id="giftApplyBtn" onclick="applyGiftCode()">💝 Appliquer</button>
+    <header class="shop-header">
+      <h1 onclick="showCatalog()">Style<span>Shop</span></h1>
+      <div class="tagline"><i class="fas fa-hard-hat" style="margin-right: 6px;"></i> Ingénierie · Travaux · Boutique</div>
+      <div class="header-actions">
+        <div class="cart-icon" onclick="toggleCart()">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cartCount">0</span>
         </div>
-        <div id="giftMessage" class="gift-message"></div>
+      </div>
+    </header>
+
+    <nav class="category-nav" id="categoryNav">
+      <a class="active" data-cat="all" onclick="filterCategory('all', this)">Toutes les catégories</a>
+      <a data-cat="nouveautes" onclick="filterCategory('nouveautes', this)">Nouveautés</a>
+      <a data-cat="collections" onclick="filterCategory('collections', this)">Collections</a>
+      <a data-cat="vetements" onclick="filterCategory('vetements', this)">Vêtements</a>
+      <a data-cat="accessoires" onclick="filterCategory('accessoires', this)">Accessoires</a>
+      <a data-cat="apropos" onclick="showAbout()">À propos</a>
+    </nav>
+
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <button class="active" onclick="setView('grid')" id="viewGrid"><i class="fas fa-th"></i></button>
+        <button onclick="setView('list')" id="viewList"><i class="fas fa-list"></i></button>
+        <span class="count" id="productCount">0 produits</span>
+      </div>
+      <div class="toolbar-right">
+        <select id="sortSelect" onchange="applySort()">
+          <option value="popular">⭐ Plus populaires</option>
+          <option value="price-asc">💰 Prix croissant</option>
+          <option value="price-desc">💰 Prix décroissant</option>
+          <option value="new">🆕 Nouveautés</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="catalog-view" id="catalogView">
+      <div class="product-grid" id="productGrid"></div>
+    </div>
+
+    <div class="product-page" id="productPage">
+      <button class="back-link" onclick="showCatalog()"><i class="fas fa-arrow-left"></i> Retour au catalogue</button>
+      <div class="product-detail" id="productDetail"></div>
+    </div>
+
+    <div class="page-content" id="aboutPage">
+      <h2>À propos de StyleShop</h2>
+      <p><strong>Ingénierie-Travaux</strong>, c'est bien plus qu'un simple site de vente en ligne. C'est la rencontre entre une expertise technique reconnue et une passion pour la qualité au service des particuliers et des professionnels.</p>
+      <p>D'abord spécialisée dans le <strong>domaine de l'ingénierie et des technologies</strong>, nous avons étendu notre savoir-faire à la mode et aux accessoires pour vous offrir le meilleur des deux mondes.</p>
+
+      <div class="values">
+        <div class="value-card">
+          <i class="fas fa-hard-hat"></i>
+          <h4>Expertise technique</h4>
+          <p>La rigueur de l'ingénierie au service de la qualité</p>
+        </div>
+        <div class="value-card">
+          <i class="fas fa-handshake"></i>
+          <h4>Confiance client</h4>
+          <p>Une relation de confiance construite sur la transparence</p>
+        </div>
+        <div class="value-card">
+          <i class="fas fa-tshirt"></i>
+          <h4>Qualité produits</h4>
+          <p>Des matériaux premium et une fabrication soignée</p>
+        </div>
+        <div class="value-card">
+          <i class="fas fa-truck"></i>
+          <h4>Livraison rapide</h4>
+          <p>Expédition sous 24h et suivi en temps réel</p>
+        </div>
+        <div class="value-card">
+          <i class="fas fa-shield-alt"></i>
+          <h4>Garantie 2 ans</h4>
+          <p>Tous nos produits sont garantis 2 ans</p>
+        </div>
+        <div class="value-card">
+          <i class="fas fa-credit-card"></i>
+          <h4>Paiement sécurisé</h4>
+          <p>3/4 fois sans frais avec Klarna</p>
+        </div>
       </div>
 
-      <div id="cartFooter" style="display:none;">
-        <!-- Les totaux sont générés par JS -->
-        <div id="cartTotalsContainer"></div>
-        
-        <!-- Conteneur pour Stripe Elements -->
-        <div id="payment-element" style="display: none;"></div>
-        
-        <button class="cart-checkout" id="checkoutBtn" disabled>
-          <i class="fas fa-lock"></i> Passer la commande
-        </button>
+      <p><strong>Notre force</strong> réside dans notre <strong>double compétence</strong> : la rigueur du secteur de l'ingénierie associée à la réactivité et la convivialité d'une boutique moderne. Nous mettons un point d'honneur à vous proposer des produits de qualité, des prix compétitifs et un service irréprochable.</p>
+      <p><i class="fas fa-map-marker-alt"></i> StyleShop · Avaux.vercel.app</p>
+    </div>
+
+    <!-- MODAL VARIANTES -->
+    <div class="variant-modal" id="variantModal">
+      <div class="modal-content">
+        <h2 id="variantProductName">Produit</h2>
+        <div class="product-ref" id="variantProductRef">Réf: </div>
+        <div class="product-price" id="variantProductPrice">0.00 €</div>
+        <div class="stock-info" id="variantStockInfo">En stock</div>
+        <div id="variantOptions"></div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeVariantModal()">Annuler</button>
+          <button class="btn-confirm" id="variantConfirmBtn" onclick="confirmVariantSelection()" disabled>Ajouter au panier</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANIER -->
+    <div class="cart-overlay" id="cartOverlay" onclick="if(event.target===this) toggleCart()">
+      <div class="cart-panel">
+        <div class="cart-header">
+          <h2><i class="fas fa-shopping-cart"></i> Mon panier</h2>
+          <button class="cart-close" onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cartItems"></div>
+
+        <!-- Carte cadeau -->
+        <div class="gift-card-section" id="giftCardSection">
+          <div class="gift-title">🎁 Carte cadeau</div>
+          <div class="gift-input-group">
+            <input type="text" id="giftCodeInput" placeholder="Code cadeau (ex: JOYEUX2026)" maxlength="30" />
+            <button class="gift-btn" id="giftApplyBtn" onclick="applyGiftCode()">💝 Appliquer</button>
+          </div>
+          <div id="giftMessage" class="gift-message"></div>
+        </div>
+
+        <div id="cartFooter" style="display:none;">
+          <div id="cartTotalsContainer"></div>
+          <!-- Plus de payment-element -->
+          <button class="cart-checkout" id="checkoutBtn" disabled>
+            <i class="fas fa-lock"></i> Passer la commande
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
-</div>
-
-<script>
-  // ---------- DONNÉES PRODUITS ----------
-  const products = [
-    { 
-      id: 1, 
-      name: "T-shirt Summer", 
-      ref: "TSH-SUMMER", 
-      price: 28.96, 
+  <script>
+    // ============================================================
+    //  DONNÉES PRODUITS (inchangées)
+    // ============================================================
+    const products = [{
+      id: 1,
+      name: "T-shirt Summer",
+      ref: "TSH-SUMMER",
+      price: 28.96,
       salePrice: 25.96,
       stock: 14,
       sold: 12,
       category: "vetements",
       tags: ["nouveautes", "collections"],
       desc: "T-shirt estival en coton doux, imprimé original. Coupe classique et confortable.",
-      images: {
-        "Blanc": ["https://i.postimg.cc/5NgS7SCM/T-shirt-Blanc-Summer.png"]
-      },
-      variants: { taille: ["S","M","L","XL","XXL"], couleur: ["Blanc"] }
-    },
-    { 
-      id: 2, 
-      name: "Tshirt Blanc Coton", 
-      ref: "TSH-COTON", 
-      price: 24.90, 
+      images: { "Blanc": ["https://i.postimg.cc/5NgS7SCM/T-shirt-Blanc-Summer.png"] },
+      variants: { taille: ["S", "M", "L", "XL", "XXL"], couleur: ["Blanc"] }
+    }, {
+      id: 2,
+      name: "Tshirt Blanc Coton",
+      ref: "TSH-COTON",
+      price: 24.90,
       salePrice: 21.90,
       stock: 18,
       sold: 8,
       category: "vetements",
       tags: ["nouveautes"],
       desc: "T-shirt blanc 100% coton bio. Confort absolu et respirabilité. Idéal au quotidien.",
-      images: {
-        "Blanc": ["https://i.postimg.cc/tTdx1936/Tshirt-Blanc-Coton.png"]
-      },
-      variants: { taille: ["S","M","L","XL"], couleur: ["Blanc"] }
-    },
-    { 
-      id: 3, 
-      name: "Montre connectée", 
-      ref: "WATCH-PRO", 
-      price: 48.80, 
+      images: { "Blanc": ["https://i.postimg.cc/tTdx1936/Tshirt-Blanc-Coton.png"] },
+      variants: { taille: ["S", "M", "L", "XL"], couleur: ["Blanc"] }
+    }, {
+      id: 3,
+      name: "Montre connectée",
+      ref: "WATCH-PRO",
+      price: 48.80,
       salePrice: 35.00,
       stock: 9,
       sold: 9,
@@ -1310,27 +1292,23 @@
         "Blanc": ["https://i.postimg.cc/HLNgQM2D/Montre-B.png", "https://i.postimg.cc/XqS6P0tq/Howtoconnect.png"]
       },
       variants: { taille: ["Unique"], couleur: ["Noir", "Blanc"] }
-    },
-    { 
-      id: 4, 
-      name: "Pull Bleu Turquoise", 
-      ref: "PULL-TURQ", 
-      price: 39.00, 
+    }, {
+      id: 4,
+      name: "Pull Bleu Turquoise",
+      ref: "PULL-TURQ",
+      price: 39.00,
       stock: 8,
       sold: 5,
       category: "vetements",
       tags: ["collections"],
       desc: "Pull en maille douce, couleur bleu turquoise. Coupe droite et moderne.",
-      images: {
-        "Bleu Turquoise": ["https://i.postimg.cc/2S6TpNXj/Screenshot-20260714-041006-Chrome.jpg", "https://i.postimg.cc/76vNTGPf/Screenshot-20260714-041013-Chrome.jpg"]
-      },
-      variants: { taille: ["S","M","L","XL"], couleur: ["Bleu Turquoise"] }
-    },
-    { 
-      id: 5, 
-      name: "Hoodie Premium", 
-      ref: "HOODIE-PRE", 
-      price: 59.90, 
+      images: { "Bleu Turquoise": ["https://i.postimg.cc/2S6TpNXj/Screenshot-20260714-041006-Chrome.jpg", "https://i.postimg.cc/76vNTGPf/Screenshot-20260714-041013-Chrome.jpg"] },
+      variants: { taille: ["S", "M", "L", "XL"], couleur: ["Bleu Turquoise"] }
+    }, {
+      id: 5,
+      name: "Hoodie Premium",
+      ref: "HOODIE-PRE",
+      price: 59.90,
       salePrice: 49.90,
       stock: 6,
       sold: 13,
@@ -1341,30 +1319,26 @@
         "Blanc": ["https://i.postimg.cc/L59Lzjrc/Screenshot-20260714-031532-Chrome.jpg", "https://i.postimg.cc/dt0G3mR8/Screenshot-20260714-031547-Chrome.jpg"],
         "Gris": ["https://i.postimg.cc/X7Xy4N3R/Screenshot-20260714-032105-Chrome.jpg", "https://i.postimg.cc/JhCyNbXT/Screenshot-20260714-032114-Chrome.jpg"]
       },
-      variants: { taille: ["S","M","L","XL"], couleur: ["Blanc", "Gris"] }
-    },
-    { 
-      id: 6, 
-      name: "Pull Marrant", 
-      ref: "PULL-FUN", 
-      price: 32.00, 
+      variants: { taille: ["S", "M", "L", "XL"], couleur: ["Blanc", "Gris"] }
+    }, {
+      id: 6,
+      name: "Pull Marrant",
+      ref: "PULL-FUN",
+      price: 32.00,
       salePrice: 30.90,
       stock: 5,
       sold: 11,
       category: "vetements",
       tags: ["collections"],
       desc: "Pull avec imprimé original et humoristique. 100% coton, coupe tendance.",
-      images: {
-        "Marrant": ["https://i.postimg.cc/sgjWqPxS/Screenshot-20260714-034732-Chrome.jpg", "https://i.postimg.cc/1z4q59Dk/Screenshot-20260714-034743-Chrome.jpg"]
-      },
-      variants: { taille: ["M","L","XL"], couleur: ["Marrant"] },
+      images: { "Marrant": ["https://i.postimg.cc/sgjWqPxS/Screenshot-20260714-034732-Chrome.jpg", "https://i.postimg.cc/1z4q59Dk/Screenshot-20260714-034743-Chrome.jpg"] },
+      variants: { taille: ["M", "L", "XL"], couleur: ["Marrant"] },
       last: true
-    },
-    { 
-      id: 7, 
-      name: "Casquette Outdoor", 
-      ref: "CAP-OUT", 
-      price: 19.90, 
+    }, {
+      id: 7,
+      name: "Casquette Outdoor",
+      ref: "CAP-OUT",
+      price: 19.90,
       salePrice: 14.90,
       stock: 12,
       sold: 10,
@@ -1377,155 +1351,171 @@
         "Gris Foncé": ["https://i.postimg.cc/LXHx89wN/Casquettegrisfonce.png"]
       },
       variants: { taille: ["Unique"], couleur: ["Bleu Marine", "Noir", "Gris Foncé"] }
-    },
-    { 
-      id: 8, 
-      name: "T-Shirt Logo", 
-      ref: "TSH-LOGO", 
-      price: 25.00, 
+    }, {
+      id: 8,
+      name: "T-Shirt Logo",
+      ref: "TSH-LOGO",
+      price: 25.00,
       salePrice: 21.99,
       stock: 16,
       sold: 10,
       category: "vetements",
       tags: ["nouveautes"],
       desc: "T-shirt avec logo brodé. Coton peigné, finition soignée. Coupe classique.",
-      images: {
-        "Blanc": [
+      images: { "Blanc": [
           "https://i.postimg.cc/3WZ80qgp/IMG-20260714-WA0010.jpg",
           "https://i.postimg.cc/xcT0vPRq/IMG-20260714-WA0011.jpg",
           "https://i.postimg.cc/G9jLTfkD/IMG-20260714-WA0014.jpg",
           "https://i.postimg.cc/mt2bYSwk/IMG-20260714-WA0016.jpg",
           "https://i.postimg.cc/svDVYJc2/IMG-20260714-WA0017.jpg"
-        ]
-      },
-      variants: { taille: ["S","M","L","XL","XXL"], couleur: ["Blanc"] }
-    },
- 
-    { 
-      id: 12, 
-      name: "Pull Hiver", 
-      ref: "PULL-WINTER", 
-      price: 35.00, 
+        ] },
+      variants: { taille: ["S", "M", "L", "XL", "XXL"], couleur: ["Blanc"] }
+    }, {
+      id: 12,
+      name: "Pull Hiver",
+      ref: "PULL-WINTER",
+      price: 35.00,
       stock: 6,
       sold: 13,
       category: "vetements",
       tags: ["collections"],
       desc: "Pull col rond, maille épaisse. Idéal pour l'hiver. 100% laine mérinos.",
-      images: {
-        "Blanc": ["https://i.postimg.cc/sgDHVh1r/Screenshot-20260714-041425-Chrome.jpg"],
-      },
-      variants: { taille: ["S","M","L","XL","XXL"], couleur: ["Blanc"] }
-    }
-  ];
+      images: { "Blanc": ["https://i.postimg.cc/sgDHVh1r/Screenshot-20260714-041425-Chrome.jpg"] },
+      variants: { taille: ["S", "M", "L", "XL", "XXL"], couleur: ["Blanc"] }
+    }];
 
-  // ---------- PRICE VARIANT MAP ----------
-  const variantPriceMap = {
-    "1-S-Blanc": 15.00, "1-M-Blanc": 15.50, "1-L-Blanc": 17.00,
-    "2-S-Blanc": 16.50, "2-M-Blanc": 17.00, "2-L-Blanc": 18.00, "2-XL-Blanc": 19.00,
-    "3-Unique-Noir": 35.00, "3-Unique-Blanc": 35.00,
-    "4-S-Bleu ": 39.00, "4-M-Bleu ": 41.00, "4-L-Bleu ": 43.00, "4-XL-Bleu": 45.00,
-    "5-S-Blanc": 49.90, "5-S-Gris": 49.90, "5-M-Blanc": 51.90, "5-M-Gris": 51.90,
-    "5-L-Blanc": 53.90, "5-L-Gris": 53.90, "5-XL-Blanc": 55.90, "5-XL-Gris": 55.90,
-    "6-M-Marrant": 24.90, "6-L-Marrant": 26.50, "6-XL-Marrant": 28.00,
-    "7-Unique-Bleu Marine": 14.90, "7-Unique-Noir": 14.90, "7-Unique-Gris Foncé": 14.90,
-    "8-S-Blanc": 21.99, "8-M-Blanc": 21.99, "8-L-Blanc": 21.99,
-    "11-M-Bleu Clair": 16.50, "11-L-Bleu Clair": 16.50,
-    "12-S-Blanc": 35.00, "12-S-Vert": 35.00, "12-M-Bordeaux": 37.00, "12-M-Vert": 37.00,
-    "12-L-Blanc": 39.00, "12-L-Vert": 39.00
-  };
+    // ============================================================
+    //  PRICE VARIANT MAP & HELPERS (inchangés)
+    // ============================================================
+    const variantPriceMap = {
+      "1-S-Blanc": 15.00,
+      "1-M-Blanc": 15.50,
+      "1-L-Blanc": 17.00,
+      "2-S-Blanc": 16.50,
+      "2-M-Blanc": 17.00,
+      "2-L-Blanc": 18.00,
+      "2-XL-Blanc": 19.00,
+      "3-Unique-Noir": 35.00,
+      "3-Unique-Blanc": 35.00,
+      "4-S-Bleu ": 39.00,
+      "4-M-Bleu ": 41.00,
+      "4-L-Bleu ": 43.00,
+      "4-XL-Bleu": 45.00,
+      "5-S-Blanc": 49.90,
+      "5-S-Gris": 49.90,
+      "5-M-Blanc": 51.90,
+      "5-M-Gris": 51.90,
+      "5-L-Blanc": 53.90,
+      "5-L-Gris": 53.90,
+      "5-XL-Blanc": 55.90,
+      "5-XL-Gris": 55.90,
+      "6-M-Marrant": 24.90,
+      "6-L-Marrant": 26.50,
+      "6-XL-Marrant": 28.00,
+      "7-Unique-Bleu Marine": 14.90,
+      "7-Unique-Noir": 14.90,
+      "7-Unique-Gris Foncé": 14.90,
+      "8-S-Blanc": 21.99,
+      "8-M-Blanc": 21.99,
+      "8-L-Blanc": 21.99,
+      "11-M-Bleu Clair": 16.50,
+      "11-L-Bleu Clair": 16.50,
+      "12-S-Blanc": 35.00,
+      "12-S-Vert": 35.00,
+      "12-M-Bordeaux": 37.00,
+      "12-M-Vert": 37.00,
+      "12-L-Blanc": 39.00,
+      "12-L-Vert": 39.00
+    };
 
-  function getVariantPrice(product, taille, couleur) {
-    const key = `${product.id}-${taille}-${couleur}`;
-    if (variantPriceMap[key] !== undefined) {
-      return variantPriceMap[key];
-    }
-    return product.salePrice || product.price;
-  }
-
-  // ---------- ÉTAT ----------
-  let cart = [];
-  let currentCategory = 'all';
-  let currentView = 'grid';
-  let currentSort = 'popular';
-  let filteredProducts = [...products];
-  let currentProductId = null;
-  let variantSelection = {};
-  
-  // Carte cadeau
-  let giftCode = null;
-  let giftDiscount = 0;
-  const validGiftCodes = {
-    "JOYEUX2026": { discount: 10, message: "🎉 Joyeux Noël 2026 ! -10€ offerts !" },
-    "BIENVENUE": { discount: 5, message: "👋 Bienvenue sur StyleShop ! -5€ de réduction !" },
-    "STYLE10": { discount: 10, message: "✨ 10€ de réduction pour vous !" },
-    "PROMO5": { discount: 5, message: "⭐ 5€ de réduction !" }
-  };
-
-  // ---------- MAP COULEURS ----------
-  const colorMap = {
-    "Blanc": "#FFFFFF",
-    "Noir": "#1a1a1a",
-    "Bleu": "#2B5F8A",
-    "Bleu Clair": "#6CB4EE",
-    "Bleu Turquoise": "#40E0D0",
-    "Bleu Marine": "#0A2342",
-    "Gris": "#808080",
-    "Gris Foncé": "#4A4A4A",
-    "Bordeaux": "#800020",
-    "Marine": "#0A2342",
-    "Beige": "#F5F5DC",
-    "Kaki": "#BDB76B",
-    "Vert": "#2E8B57",
-    "Marrant": "#FF6B6B"
-  };
-
-  // ---------- CONSTANTES LIVRAISON ----------
-  const SHIPPING_THRESHOLD = 50;
-  const SHIPPING_COST = 5.50;
-
-  // ---------- RENDER CATALOGUE ----------
-  const gridEl = document.getElementById('productGrid');
-
-  function renderCatalog() {
-    gridEl.innerHTML = '';
-    const count = filteredProducts.length;
-    document.getElementById('productCount').textContent = `${count} produit${count > 1 ? 's' : ''}`;
-
-    if (count === 0) {
-      gridEl.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#7a6f5d;">Aucun produit dans cette catégorie</div>`;
-      return;
+    function getVariantPrice(product, taille, couleur) {
+      const key = `${product.id}-${taille}-${couleur}`;
+      return variantPriceMap[key] !== undefined ? variantPriceMap[key] : (product.salePrice || product.price);
     }
 
-    filteredProducts.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      card.dataset.id = p.id;
+    // ============================================================
+    //  ÉTAT (inchangé)
+    // ============================================================
+    let cart = [];
+    let currentCategory = 'all';
+    let currentView = 'grid';
+    let currentSort = 'popular';
+    let filteredProducts = [...products];
+    let currentProductId = null;
+    let variantSelection = {};
+    let giftCode = null;
+    let giftDiscount = 0;
 
-      let stockLabel = p.stock > 0 ? `En stock` : 'Rupture';
-      let stockClass = 'stock';
-      if (p.stock <= 3 && p.stock > 0) { stockClass += ' warning'; }
-      else if (p.stock === 0) { stockClass += ' danger'; }
+    const validGiftCodes = {
+      "JOYEUX2026": { discount: 10, message: "🎉 Joyeux Noël 2026 ! -10€ offerts !" },
+      "BIENVENUE": { discount: 5, message: "👋 Bienvenue sur StyleShop ! -5€ de réduction !" },
+      "STYLE10": { discount: 10, message: "✨ 10€ de réduction pour vous !" },
+      "PROMO5": { discount: 5, message: "⭐ 5€ de réduction !" }
+    };
 
-      const colors = p.variants?.couleur || [];
-      const firstColor = colors.length > 0 ? colors[0] : null;
-      const colorImages = firstColor && p.images && p.images[firstColor] ? p.images[firstColor] : [];
-      const imgSrc = colorImages.length > 0 ? colorImages[0] : '';
+    const colorMap = {
+      "Blanc": "#FFFFFF",
+      "Noir": "#1a1a1a",
+      "Bleu": "#2B5F8A",
+      "Bleu Clair": "#6CB4EE",
+      "Bleu Turquoise": "#40E0D0",
+      "Bleu Marine": "#0A2342",
+      "Gris": "#808080",
+      "Gris Foncé": "#4A4A4A",
+      "Bordeaux": "#800020",
+      "Marine": "#0A2342",
+      "Beige": "#F5F5DC",
+      "Kaki": "#BDB76B",
+      "Vert": "#2E8B57",
+      "Marrant": "#FF6B6B"
+    };
 
-      const imgHtml = imgSrc 
-        ? `<img src="${imgSrc}" alt="${p.name}" class="product-image" loading="lazy">`
-        : `<div class="product-image-placeholder"><span>${p.name}</span></div>`;
+    const SHIPPING_THRESHOLD = 50;
+    const SHIPPING_COST = 5.50;
 
-      const isInCart = cart.find(item => item.id === p.id);
-      const btnText = isInCart ? '✓ Ajouté' : 'Ajouter';
-      const btnClass = isInCart ? 'btn-add added' : 'btn-add';
+    // ============================================================
+    //  RENDER CATALOGUE (inchangé)
+    // ============================================================
+    const gridEl = document.getElementById('productGrid');
 
-      const displayPrice = p.salePrice ? p.salePrice : p.price;
-      const hasSale = p.salePrice && p.salePrice < p.price;
-      const priceHtml = hasSale 
-        ? `<span class="price old">${p.price.toFixed(2)} €</span><span class="price sale">${p.salePrice.toFixed(2)} €</span><span class="sale-badge">-${Math.round((1 - p.salePrice/p.price)*100)}%</span>`
-        : `<span class="price">${p.price.toFixed(2)} €</span>`;
+    function renderCatalog() {
+      gridEl.innerHTML = '';
+      const count = filteredProducts.length;
+      document.getElementById('productCount').textContent = `${count} produit${count > 1 ? 's' : ''}`;
 
-      card.innerHTML = `
+      if (count === 0) {
+        gridEl.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#7a6f5d;">Aucun produit dans cette catégorie</div>`;
+        return;
+      }
+
+      filteredProducts.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.dataset.id = p.id;
+
+        let stockLabel = p.stock > 0 ? `En stock` : 'Rupture';
+        let stockClass = 'stock';
+        if (p.stock <= 3 && p.stock > 0) { stockClass += ' warning'; } else if (p.stock === 0) { stockClass += ' danger'; }
+
+        const colors = p.variants?.couleur || [];
+        const firstColor = colors.length > 0 ? colors[0] : null;
+        const colorImages = firstColor && p.images && p.images[firstColor] ? p.images[firstColor] : [];
+        const imgSrc = colorImages.length > 0 ? colorImages[0] : '';
+
+        const imgHtml = imgSrc ?
+          `<img src="${imgSrc}" alt="${p.name}" class="product-image" loading="lazy">` :
+          `<div class="product-image-placeholder"><span>${p.name}</span></div>`;
+
+        const isInCart = cart.find(item => item.id === p.id);
+        const btnText = isInCart ? '✓ Ajouté' : 'Ajouter';
+        const btnClass = isInCart ? 'btn-add added' : 'btn-add';
+
+        const hasSale = p.salePrice && p.salePrice < p.price;
+        const priceHtml = hasSale ?
+          `<span class="price old">${p.price.toFixed(2)} €</span><span class="price sale">${p.salePrice.toFixed(2)} €</span><span class="sale-badge">-${Math.round((1 - p.salePrice / p.price) * 100)}%</span>` :
+          `<span class="price">${p.price.toFixed(2)} €</span>`;
+
+        card.innerHTML = `
         ${imgHtml}
         <div class="card-content">
           <h3>${p.name}</h3>
@@ -1540,423 +1530,399 @@
           <button class="${btnClass}" data-id="${p.id}">${btnText}</button>
         </div>
       `;
-      gridEl.appendChild(card);
+        gridEl.appendChild(card);
 
-      card.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON') return;
-        showProductPage(p.id);
+        card.addEventListener('click', (e) => {
+          if (e.target.tagName === 'BUTTON') return;
+          showProductPage(p.id);
+        });
+
+        card.querySelector('.btn-add').addEventListener('click', (e) => {
+          e.stopPropagation();
+          openVariantModal(p.id);
+        });
       });
 
-      card.querySelector('.btn-add').addEventListener('click', (e) => {
-        e.stopPropagation();
-        openVariantModal(p.id);
-      });
-    });
-
-    if (currentView === 'list') {
-      gridEl.classList.add('list-view');
-    } else {
-      gridEl.classList.remove('list-view');
-    }
-  }
-
-  // ---------- FILTRES ----------
-  function filterCategory(category, el) {
-    if (category === 'apropos') return;
-    currentCategory = category;
-    
-    document.querySelectorAll('.category-nav a').forEach(a => a.classList.remove('active'));
-    if (el) el.classList.add('active');
-
-    if (category === 'all') {
-      filteredProducts = [...products];
-    } else {
-      filteredProducts = products.filter(p => 
-        p.category === category || (p.tags && p.tags.includes(category))
-      );
-    }
-
-    applySort();
-    document.getElementById('productPage').classList.remove('active');
-    document.getElementById('aboutPage').classList.remove('active');
-    document.getElementById('catalogView').classList.remove('hidden');
-  }
-
-  // ---------- TRI ----------
-  function applySort() {
-    const sort = document.getElementById('sortSelect').value;
-    currentSort = sort;
-
-    switch(sort) {
-      case 'popular':
-        filteredProducts.sort((a, b) => (b.sold + 5) - (a.sold + 5));
-        break;
-      case 'price-asc':
-        filteredProducts.sort((a, b) => (a.salePrice || a.price) - (b.salePrice || b.price));
-        break;
-      case 'price-desc':
-        filteredProducts.sort((a, b) => (b.salePrice || b.price) - (a.salePrice || a.price));
-        break;
-      case 'new':
-        filteredProducts.sort((a, b) => {
-          const aNew = a.tags && a.tags.includes('nouveautes') ? 1 : 0;
-          const bNew = b.tags && b.tags.includes('nouveautes') ? 1 : 0;
-          return bNew - aNew;
-        });
-        break;
-    }
-    renderCatalog();
-  }
-
-  // ---------- VUE ----------
-  function setView(view) {
-    currentView = view;
-    document.querySelectorAll('.toolbar-left button').forEach(b => b.classList.remove('active'));
-    if (view === 'grid') {
-      document.getElementById('viewGrid').classList.add('active');
-      gridEl.classList.remove('list-view');
-    } else {
-      document.getElementById('viewList').classList.add('active');
-      gridEl.classList.add('list-view');
-    }
-  }
-
-  // ---------- POPUP VARIANTES ----------
-  let pendingProductId = null;
-
-  function openVariantModal(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    pendingProductId = productId;
-    variantSelection = {};
-
-    if (product.variants) {
-      if (product.variants.taille) variantSelection.taille = product.variants.taille[0];
-      if (product.variants.couleur) variantSelection.couleur = product.variants.couleur[0];
-    }
-
-    document.getElementById('variantProductName').textContent = product.name;
-    document.getElementById('variantProductRef').textContent = `Réf: ${product.ref}`;
-    
-    const basePrice = product.salePrice || product.price;
-    document.getElementById('variantProductPrice').textContent = `${basePrice.toFixed(2)} €`;
-
-    const stockInfo = document.getElementById('variantStockInfo');
-    if (product.stock <= 0) {
-      stockInfo.textContent = '⚠️ Rupture de stock';
-      stockInfo.className = 'stock-info warning';
-    } else if (product.stock <= 3) {
-      stockInfo.textContent = `⚠️ Plus que ${product.stock} exemplaires !`;
-      stockInfo.className = 'stock-info warning';
-    } else {
-      stockInfo.textContent = `✅ En stock (${product.stock})`;
-      stockInfo.className = 'stock-info';
-    }
-
-    const container = document.getElementById('variantOptions');
-    container.innerHTML = '';
-
-    const hasVariants = product.variants && Object.keys(product.variants).length > 0;
-    
-    if (!hasVariants || Object.keys(product.variants).every(k => product.variants[k].length === 1 && product.variants[k][0] === 'Unique')) {
-      container.innerHTML = '<p style="color:#7a6f5d;margin:0.5rem 0;">Aucune option requise</p>';
-      document.getElementById('variantConfirmBtn').disabled = false;
-      return;
-    }
-
-    for (const [key, values] of Object.entries(product.variants)) {
-      if (key === 'couleur') {
-        const group = document.createElement('div');
-        group.className = 'variant-group';
-        group.innerHTML = `<label>${key.charAt(0).toUpperCase() + key.slice(1)}</label><div class="variant-options" data-variant="${key}">`;
-        values.forEach(color => {
-          const hexColor = colorMap[color] || '#ccc';
-          const span = document.createElement('span');
-          span.className = 'color-option';
-          if (color === variantSelection.couleur) span.classList.add('active');
-          span.dataset.value = color;
-          span.innerHTML = `<span class="color-swatch" style="background-color: ${hexColor};"></span> ${color}`;
-          span.onclick = function() { 
-            selectVariant(this, key, color);
-            updateVariantPrice(product);
-          };
-          group.querySelector('.variant-options').appendChild(span);
-        });
-        container.appendChild(group);
+      if (currentView === 'list') {
+        gridEl.classList.add('list-view');
       } else {
-        const group = document.createElement('div');
-        group.className = 'variant-group';
-        group.innerHTML = `<label>${key.charAt(0).toUpperCase() + key.slice(1)}</label><div class="variant-options" data-variant="${key}">`;
-        values.forEach(val => {
-          const span = document.createElement('span');
-          span.dataset.value = val;
-          if (val === variantSelection.taille) span.classList.add('active');
-          span.textContent = val;
-          span.onclick = function() { 
-            selectVariant(this, key, val);
-            updateVariantPrice(product);
-          };
-          group.querySelector('.variant-options').appendChild(span);
-        });
-        container.appendChild(group);
+        gridEl.classList.remove('list-view');
       }
     }
 
-    document.getElementById('variantConfirmBtn').disabled = false;
-    document.getElementById('variantModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
+    // ============================================================
+    //  FILTRES / TRI / VUE (inchangés)
+    // ============================================================
+    function filterCategory(category, el) {
+      if (category === 'apropos') return;
+      currentCategory = category;
+      document.querySelectorAll('.category-nav a').forEach(a => a.classList.remove('active'));
+      if (el) el.classList.add('active');
 
-  function updateVariantPrice(product) {
-    const taille = variantSelection.taille || (product.variants?.taille?.[0] || 'Unique');
-    const couleur = variantSelection.couleur || (product.variants?.couleur?.[0] || 'Standard');
-    const price = getVariantPrice(product, taille, couleur);
-    document.getElementById('variantProductPrice').textContent = `${price.toFixed(2)} €`;
-  }
+      if (category === 'all') {
+        filteredProducts = [...products];
+      } else {
+        filteredProducts = products.filter(p => p.category === category || (p.tags && p.tags.includes(category)));
+      }
+      applySort();
+      document.getElementById('productPage').classList.remove('active');
+      document.getElementById('aboutPage').classList.remove('active');
+      document.getElementById('catalogView').classList.remove('hidden');
+    }
 
-  function selectVariant(element, key, value) {
-    const parent = element.closest('.variant-options');
-    parent.querySelectorAll('span').forEach(s => s.classList.remove('active'));
-    element.classList.add('active');
-    variantSelection[key] = value;
-  }
+    function applySort() {
+      const sort = document.getElementById('sortSelect').value;
+      currentSort = sort;
+      switch (sort) {
+        case 'popular':
+          filteredProducts.sort((a, b) => (b.sold + 5) - (a.sold + 5));
+          break;
+        case 'price-asc':
+          filteredProducts.sort((a, b) => (a.salePrice || a.price) - (b.salePrice || b.price));
+          break;
+        case 'price-desc':
+          filteredProducts.sort((a, b) => (b.salePrice || b.price) - (a.salePrice || a.price));
+          break;
+        case 'new':
+          filteredProducts.sort((a, b) => {
+            const aNew = a.tags && a.tags.includes('nouveautes') ? 1 : 0;
+            const bNew = b.tags && b.tags.includes('nouveautes') ? 1 : 0;
+            return bNew - aNew;
+          });
+          break;
+      }
+      renderCatalog();
+    }
 
-  function confirmVariantSelection() {
-    const product = products.find(p => p.id === pendingProductId);
-    if (!product) return;
+    function setView(view) {
+      currentView = view;
+      document.querySelectorAll('.toolbar-left button').forEach(b => b.classList.remove('active'));
+      if (view === 'grid') {
+        document.getElementById('viewGrid').classList.add('active');
+        gridEl.classList.remove('list-view');
+      } else {
+        document.getElementById('viewList').classList.add('active');
+        gridEl.classList.add('list-view');
+      }
+    }
 
-    const hasVariants = product.variants && Object.keys(product.variants).length > 0;
-    if (hasVariants) {
-      const allGroups = document.querySelectorAll('#variantOptions .variant-options');
-      for (const group of allGroups) {
-        if (!group.querySelector('.active')) {
-          alert('Veuillez sélectionner toutes les options');
+    // ============================================================
+    //  POPUP VARIANTES (inchangé)
+    // ============================================================
+    let pendingProductId = null;
+
+    function openVariantModal(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      pendingProductId = productId;
+      variantSelection = {};
+      if (product.variants) {
+        if (product.variants.taille) variantSelection.taille = product.variants.taille[0];
+        if (product.variants.couleur) variantSelection.couleur = product.variants.couleur[0];
+      }
+      document.getElementById('variantProductName').textContent = product.name;
+      document.getElementById('variantProductRef').textContent = `Réf: ${product.ref}`;
+      const basePrice = product.salePrice || product.price;
+      document.getElementById('variantProductPrice').textContent = `${basePrice.toFixed(2)} €`;
+
+      const stockInfo = document.getElementById('variantStockInfo');
+      if (product.stock <= 0) {
+        stockInfo.textContent = '⚠️ Rupture de stock';
+        stockInfo.className = 'stock-info warning';
+      } else if (product.stock <= 3) {
+        stockInfo.textContent = `⚠️ Plus que ${product.stock} exemplaires !`;
+        stockInfo.className = 'stock-info warning';
+      } else {
+        stockInfo.textContent = `✅ En stock (${product.stock})`;
+        stockInfo.className = 'stock-info';
+      }
+
+      const container = document.getElementById('variantOptions');
+      container.innerHTML = '';
+      const hasVariants = product.variants && Object.keys(product.variants).length > 0;
+
+      if (!hasVariants || Object.keys(product.variants).every(k => product.variants[k].length === 1 && product.variants[k][0] === 'Unique')) {
+        container.innerHTML = '<p style="color:#7a6f5d;margin:0.5rem 0;">Aucune option requise</p>';
+        document.getElementById('variantConfirmBtn').disabled = false;
+        return;
+      }
+
+      for (const [key, values] of Object.entries(product.variants)) {
+        if (key === 'couleur') {
+          const group = document.createElement('div');
+          group.className = 'variant-group';
+          group.innerHTML = `<label>${key.charAt(0).toUpperCase() + key.slice(1)}</label><div class="variant-options" data-variant="${key}">`;
+          values.forEach(color => {
+            const hexColor = colorMap[color] || '#ccc';
+            const span = document.createElement('span');
+            span.className = 'color-option';
+            if (color === variantSelection.couleur) span.classList.add('active');
+            span.dataset.value = color;
+            span.innerHTML = `<span class="color-swatch" style="background-color: ${hexColor};"></span> ${color}`;
+            span.onclick = function() {
+              selectVariant(this, key, color);
+              updateVariantPrice(product);
+            };
+            group.querySelector('.variant-options').appendChild(span);
+          });
+          container.appendChild(group);
+        } else {
+          const group = document.createElement('div');
+          group.className = 'variant-group';
+          group.innerHTML = `<label>${key.charAt(0).toUpperCase() + key.slice(1)}</label><div class="variant-options" data-variant="${key}">`;
+          values.forEach(val => {
+            const span = document.createElement('span');
+            span.dataset.value = val;
+            if (val === variantSelection.taille) span.classList.add('active');
+            span.textContent = val;
+            span.onclick = function() {
+              selectVariant(this, key, val);
+              updateVariantPrice(product);
+            };
+            group.querySelector('.variant-options').appendChild(span);
+          });
+          container.appendChild(group);
+        }
+      }
+
+      document.getElementById('variantConfirmBtn').disabled = false;
+      document.getElementById('variantModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function updateVariantPrice(product) {
+      const taille = variantSelection.taille || (product.variants?.taille?.[0] || 'Unique');
+      const couleur = variantSelection.couleur || (product.variants?.couleur?.[0] || 'Standard');
+      const price = getVariantPrice(product, taille, couleur);
+      document.getElementById('variantProductPrice').textContent = `${price.toFixed(2)} €`;
+    }
+
+    function selectVariant(element, key, value) {
+      const parent = element.closest('.variant-options');
+      parent.querySelectorAll('span').forEach(s => s.classList.remove('active'));
+      element.classList.add('active');
+      variantSelection[key] = value;
+    }
+
+    function confirmVariantSelection() {
+      const product = products.find(p => p.id === pendingProductId);
+      if (!product) return;
+      const hasVariants = product.variants && Object.keys(product.variants).length > 0;
+      if (hasVariants) {
+        const allGroups = document.querySelectorAll('#variantOptions .variant-options');
+        for (const group of allGroups) {
+          if (!group.querySelector('.active')) {
+            alert('Veuillez sélectionner toutes les options');
+            return;
+          }
+        }
+      }
+      const selection = { ...variantSelection };
+      if (!hasVariants || Object.keys(product.variants).every(k => product.variants[k].length === 1 && product.variants[k][0] === 'Unique')) {
+        selection.taille = 'Unique';
+        selection.couleur = 'Standard';
+      }
+      addToCartWithVariants(pendingProductId, selection);
+      closeVariantModal();
+    }
+
+    function closeVariantModal() {
+      document.getElementById('variantModal').classList.remove('active');
+      document.body.style.overflow = '';
+      pendingProductId = null;
+      variantSelection = {};
+    }
+
+    // ============================================================
+    //  PANIER (inchangé sauf handleCheckout)
+    // ============================================================
+    function addToCartWithVariants(productId, variants) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      const taille = variants.taille || 'Unique';
+      const couleur = variants.couleur || 'Standard';
+      const price = getVariantPrice(product, taille, couleur);
+      const productImages = product.images && product.images[couleur] ? product.images[couleur] : [];
+      const image = productImages.length > 0 ? productImages[0] : '';
+
+      const existing = cart.find(item =>
+        item.id === productId &&
+        JSON.stringify(item.variants) === JSON.stringify(variants)
+      );
+
+      if (existing) {
+        if (existing.quantity < product.stock) {
+          existing.quantity++;
+        } else {
+          alert('Stock insuffisant !');
           return;
+        }
+      } else {
+        if (product.stock <= 0) {
+          alert('Produit en rupture de stock !');
+          return;
+        }
+        cart.push({
+          id: product.id,
+          name: product.name,
+          price: price,
+          quantity: 1,
+          variants: variants,
+          image: image,
+          color: couleur
+        });
+      }
+      updateCartBadge();
+      renderCatalog();
+      renderCart();
+
+      const btn = document.getElementById('productAddBtn');
+      if (btn) {
+        btn.innerHTML = '<i class="fas fa-check" style="margin-right:8px;"></i> ✓ Ajouté au panier';
+        btn.classList.add('added');
+      }
+    }
+
+    function removeFromCart(cartIndex) {
+      cart.splice(cartIndex, 1);
+      updateCartBadge();
+      renderCart();
+      renderCatalog();
+      document.getElementById('checkoutBtn').disabled = true;
+    }
+
+    function updateQuantity(cartIndex, delta) {
+      const item = cart[cartIndex];
+      if (!item) return;
+      const product = products.find(p => p.id === item.id);
+      if (!product) return;
+      const newQty = item.quantity + delta;
+      if (newQty <= 0) {
+        removeFromCart(cartIndex);
+        return;
+      }
+      if (newQty > product.stock) {
+        alert('Stock insuffisant !');
+        return;
+      }
+      item.quantity = newQty;
+      updateCartBadge();
+      renderCart();
+      renderCatalog();
+    }
+
+    function toggleCart() {
+      const overlay = document.getElementById('cartOverlay');
+      overlay.classList.toggle('active');
+      if (overlay.classList.contains('active')) {
+        renderCart();
+        if (cart.length > 0) {
+          document.getElementById('checkoutBtn').disabled = false;
         }
       }
     }
 
-    const selection = { ...variantSelection };
-    if (!hasVariants || Object.keys(product.variants).every(k => product.variants[k].length === 1 && product.variants[k][0] === 'Unique')) {
-      selection.taille = 'Unique';
-      selection.couleur = 'Standard';
-    }
-
-    addToCartWithVariants(pendingProductId, selection);
-    closeVariantModal();
-  }
-
-  function closeVariantModal() {
-    document.getElementById('variantModal').classList.remove('active');
-    document.body.style.overflow = '';
-    pendingProductId = null;
-    variantSelection = {};
-  }
-
-  // ---------- PANIER ----------
-  function addToCartWithVariants(productId, variants) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-
-    const taille = variants.taille || 'Unique';
-    const couleur = variants.couleur || 'Standard';
-    const price = getVariantPrice(product, taille, couleur);
-
-    const productImages = product.images && product.images[couleur] ? product.images[couleur] : [];
-    const image = productImages.length > 0 ? productImages[0] : '';
-
-    const existing = cart.find(item => 
-      item.id === productId && 
-      JSON.stringify(item.variants) === JSON.stringify(variants)
-    );
-
-    if (existing) {
-      if (existing.quantity < product.stock) {
-        existing.quantity++;
+    // ============================================================
+    //  CARTE CADEAU (inchangé)
+    // ============================================================
+    function applyGiftCode() {
+      const input = document.getElementById('giftCodeInput');
+      const code = input.value.trim().toUpperCase();
+      const messageEl = document.getElementById('giftMessage');
+      if (!code) {
+        messageEl.innerHTML = '⚠️ Veuillez entrer un code valide';
+        messageEl.style.color = '#b33a2e';
+        return;
+      }
+      if (giftCode) {
+        messageEl.innerHTML = '⚠️ Une carte cadeau est déjà appliquée. Retirez-la d\'abord.';
+        messageEl.style.color = '#b33a2e';
+        return;
+      }
+      const validCode = validGiftCodes[code];
+      if (validCode) {
+        giftCode = code;
+        giftDiscount = validCode.discount;
+        messageEl.innerHTML = `✅ ${validCode.message}`;
+        messageEl.style.color = '#3c6e4b';
+        const btn = document.getElementById('giftApplyBtn');
+        btn.textContent = '🗑️ Retirer';
+        btn.className = 'gift-btn remove-gift';
+        btn.onclick = removeGiftCode;
+        input.disabled = true;
+        renderCart();
       } else {
-        alert('Stock insuffisant !');
-        return;
-      }
-    } else {
-      if (product.stock <= 0) {
-        alert('Produit en rupture de stock !');
-        return;
-      }
-      
-      cart.push({
-        id: product.id,
-        name: product.name,
-        price: price,
-        quantity: 1,
-        variants: variants,
-        image: image,
-        color: couleur
-      });
-    }
-    updateCartBadge();
-    renderCatalog();
-    renderCart();
-    
-    const btn = document.getElementById('productAddBtn');
-    if (btn) {
-      btn.innerHTML = '<i class="fas fa-check" style="margin-right:8px;"></i> ✓ Ajouté au panier';
-      btn.classList.add('added');
-    }
-  }
-
-  function removeFromCart(cartIndex) {
-    cart.splice(cartIndex, 1);
-    updateCartBadge();
-    renderCart();
-    renderCatalog();
-    // Désactiver le paiement si le panier est vide
-    document.getElementById('checkoutBtn').disabled = true;
-    document.getElementById('payment-element').style.display = 'none';
-  }
-
-  function updateQuantity(cartIndex, delta) {
-    const item = cart[cartIndex];
-    if (!item) return;
-    const product = products.find(p => p.id === item.id);
-    if (!product) return;
-
-    const newQty = item.quantity + delta;
-    if (newQty <= 0) {
-      removeFromCart(cartIndex);
-      return;
-    }
-    if (newQty > product.stock) {
-      alert('Stock insuffisant !');
-      return;
-    }
-    item.quantity = newQty;
-    updateCartBadge();
-    renderCart();
-    renderCatalog();
-  }
-
-  function toggleCart() {
-    const overlay = document.getElementById('cartOverlay');
-    overlay.classList.toggle('active');
-    if (overlay.classList.contains('active')) {
-      renderCart();
-      // Si le panier n'est pas vide, initialiser le paiement
-      if (cart.length > 0) {
-        initPayment();
+        messageEl.innerHTML = '❌ Code invalide. Essayez : JOYEUX2026, BIENVENUE, STYLE10 ou PROMO5';
+        messageEl.style.color = '#b33a2e';
       }
     }
-  }
 
-  // ---------- CARTE CADEAU ----------
-  function applyGiftCode() {
-    const input = document.getElementById('giftCodeInput');
-    const code = input.value.trim().toUpperCase();
-    const messageEl = document.getElementById('giftMessage');
-    
-    if (!code) {
-      messageEl.innerHTML = '⚠️ Veuillez entrer un code valide';
-      messageEl.style.color = '#b33a2e';
-      return;
-    }
-
-    if (giftCode) {
-      messageEl.innerHTML = '⚠️ Une carte cadeau est déjà appliquée. Retirez-la d\'abord.';
-      messageEl.style.color = '#b33a2e';
-      return;
-    }
-
-    const validCode = validGiftCodes[code];
-    if (validCode) {
-      giftCode = code;
-      giftDiscount = validCode.discount;
-      messageEl.innerHTML = `✅ ${validCode.message}`;
-      messageEl.style.color = '#3c6e4b';
-      
+    function removeGiftCode() {
+      giftCode = null;
+      giftDiscount = 0;
+      const input = document.getElementById('giftCodeInput');
+      input.disabled = false;
+      input.value = '';
+      document.getElementById('giftMessage').innerHTML = '';
       const btn = document.getElementById('giftApplyBtn');
-      btn.textContent = '🗑️ Retirer';
-      btn.className = 'gift-btn remove-gift';
-      btn.onclick = removeGiftCode;
-      
-      input.disabled = true;
+      btn.textContent = '💝 Appliquer';
+      btn.className = 'gift-btn';
+      btn.onclick = applyGiftCode;
       renderCart();
-      // Mettre à jour le paiement si le panier est ouvert
-      if (cart.length > 0) {
-        initPayment();
-      }
-    } else {
-      messageEl.innerHTML = '❌ Code invalide. Essayez : JOYEUX2026, BIENVENUE, STYLE10 ou PROMO5';
-      messageEl.style.color = '#b33a2e';
     }
-  }
 
-  function removeGiftCode() {
-    giftCode = null;
-    giftDiscount = 0;
-    const input = document.getElementById('giftCodeInput');
-    input.disabled = false;
-    input.value = '';
-    document.getElementById('giftMessage').innerHTML = '';
-    const btn = document.getElementById('giftApplyBtn');
-    btn.textContent = '💝 Appliquer';
-    btn.className = 'gift-btn';
-    btn.onclick = applyGiftCode;
-    renderCart();
-    if (cart.length > 0) {
-      initPayment();
+    // ============================================================
+    //  TOTAUX (inchangés)
+    // ============================================================
+    function getCartTotal() {
+      return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     }
-  }
 
-  // ---------- TOTAUX ----------
-  function getCartTotal() {
-    return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  }
+    function getTotalAfterDiscount() {
+      return Math.max(0, getCartTotal() - giftDiscount);
+    }
 
-  function getTotalAfterDiscount() {
-    return Math.max(0, getCartTotal() - giftDiscount);
-  }
+    function getShippingCost() {
+      return getTotalAfterDiscount() < SHIPPING_THRESHOLD ? SHIPPING_COST : 0;
+    }
 
-  function getShippingCost() {
-    return getTotalAfterDiscount() < SHIPPING_THRESHOLD ? SHIPPING_COST : 0;
-  }
+    function getFinalTotal() {
+      return getTotalAfterDiscount() + getShippingCost();
+    }
 
-  function getFinalTotal() {
-    return getTotalAfterDiscount() + getShippingCost();
-  }
+    // ============================================================
+    //  RENDER CART (inchangé)
+    // ============================================================
+    function renderCart() {
+      const container = document.getElementById('cartItems');
+      const footer = document.getElementById('cartFooter');
 
-  // ---------- RENDER CART ----------
-  function renderCart() {
-    const container = document.getElementById('cartItems');
-    const footer = document.getElementById('cartFooter');
-
-    if (cart.length === 0) {
-      container.innerHTML = `
+      if (cart.length === 0) {
+        container.innerHTML = `
         <div class="cart-empty">
           <i class="fas fa-shopping-bag"></i>
           <p>Votre panier est vide</p>
           <p style="font-size:0.85rem; margin-top:0.3rem;">Découvrez nos produits !</p>
         </div>
       `;
-      footer.style.display = 'none';
-      if (giftCode) removeGiftCode();
-      document.getElementById('checkoutBtn').disabled = true;
-      document.getElementById('payment-element').style.display = 'none';
-      return;
-    }
+        footer.style.display = 'none';
+        if (giftCode) removeGiftCode();
+        document.getElementById('checkoutBtn').disabled = true;
+        return;
+      }
 
-    footer.style.display = 'block';
-    let html = '';
-    let total = 0;
+      footer.style.display = 'block';
+      let html = '';
+      let total = 0;
 
-    cart.forEach((item, index) => {
-      total += item.price * item.quantity;
-      const variantText = item.variants ? Object.entries(item.variants).map(([k, v]) => `${k}: ${v}`).join(' · ') : '';
-      
-      const colorName = item.color || 'Standard';
-      const hexColor = colorMap[colorName] || '#ccc';
-      const imageSrc = item.image || 'https://i.postimg.cc/5NgS7SCM/T-shirt-Blanc-Summer.png';
-      
-      html += `
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        const variantText = item.variants ? Object.entries(item.variants).map(([k, v]) => `${k}: ${v}`).join(' · ') : '';
+        const colorName = item.color || 'Standard';
+        const hexColor = colorMap[colorName] || '#ccc';
+        const imageSrc = item.image || 'https://i.postimg.cc/5NgS7SCM/T-shirt-Blanc-Summer.png';
+
+        html += `
         <div class="cart-item">
           <img src="${imageSrc}" alt="${item.name}">
           <div class="item-info">
@@ -1975,31 +1941,30 @@
           <button class="item-remove" onclick="removeFromCart(${index})"><i class="fas fa-trash"></i></button>
         </div>
       `;
-    });
+      });
 
-    container.innerHTML = html;
-    
-    const totalBeforeDiscount = total;
-    const totalAfterDiscount = getTotalAfterDiscount();
-    const shipping = getShippingCost();
-    const finalTotal = getFinalTotal();
+      container.innerHTML = html;
 
-    // Construire les lignes de total
-    let discountHtml = '';
-    if (giftDiscount > 0) {
-      discountHtml = `
+      const totalBeforeDiscount = total;
+      const totalAfterDiscount = getTotalAfterDiscount();
+      const shipping = getShippingCost();
+      const finalTotal = getFinalTotal();
+
+      let discountHtml = '';
+      if (giftDiscount > 0) {
+        discountHtml = `
         <div class="cart-total" style="border-top:none; padding-top:0.3rem; font-size:1rem; color:#c0392b;">
           <span style="font-weight:400;">💰 Réduction</span>
           <span class="discount">-${giftDiscount.toFixed(2)} €</span>
         </div>
       `;
-    }
+      }
 
-    const shippingLabel = shipping > 0 ? '🚚 Frais de livraison' : '🚚 Livraison offerte';
-    const shippingColor = shipping > 0 ? '#c0392b' : '#3c6e4b';
+      const shippingLabel = shipping > 0 ? '🚚 Frais de livraison' : '🚚 Livraison offerte';
+      const shippingColor = shipping > 0 ? '#c0392b' : '#3c6e4b';
 
-    const totalsContainer = document.getElementById('cartTotalsContainer');
-    totalsContainer.innerHTML = `
+      const totalsContainer = document.getElementById('cartTotalsContainer');
+      totalsContainer.innerHTML = `
       <div class="cart-total">
         <span>Sous-total</span>
         <span>${totalBeforeDiscount.toFixed(2)} €</span>
@@ -2015,196 +1980,130 @@
       </div>
     `;
 
-    // Activer le bouton de commande
-    document.getElementById('checkoutBtn').disabled = false;
-  }
-
-  function updateCartBadge() {
-    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById('cartCount').textContent = count;
-  }
-
-  // ---------- STRIPE PAYMENT ----------
-  const stripe = Stripe('pk_live_51Tekkn6wfDMIVGHfR7YuJDjsy2wmuTOwrXg0t9ynMJJ5eDofwnKYpuG9Ex6juQqGIH6iWO4rXm9FmrS1wjIQT7St00q9WaQlpe');
-
-  let elements = null;
-  let paymentIntentClientSecret = null;
-
-  async function initPayment() {
-    if (cart.length === 0) {
-      document.getElementById('payment-element').style.display = 'none';
-      document.getElementById('checkoutBtn').disabled = true;
-      return;
-    }
-
-    const items = cart.map(item => ({
-      name: item.name,
-      price: item.price,
-      quantity: item.quantity,
-      variants: item.variants || {},
-    }));
-
-    const total = getCartTotal();
-    const discount = giftDiscount;
-    const finalTotal = getFinalTotal();
-
-    try {
-      const response = await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items, total, discount, finalTotal }),
-      });
-
-      const data = await response.json();
-      if (data.clientSecret) {
-        paymentIntentClientSecret = data.clientSecret;
-
-        // Montrer le conteneur
-        const paymentElementContainer = document.getElementById('payment-element');
-        paymentElementContainer.style.display = 'block';
-
-        if (!elements) {
-          elements = stripe.elements({
-            clientSecret: paymentIntentClientSecret,
-            appearance: { theme: 'stripe' },
-          });
-          const paymentElement = elements.create('payment');
-          paymentElement.mount('#payment-element');
-        } else {
-          elements.update({ clientSecret: paymentIntentClientSecret });
-        }
-
-        document.getElementById('checkoutBtn').disabled = false;
-      } else {
-        alert('Erreur lors de l\'initialisation du paiement.');
-        document.getElementById('checkoutBtn').disabled = true;
-      }
-    } catch (error) {
-      console.error(error);
-      alert('Erreur de connexion au serveur de paiement.');
-      document.getElementById('checkoutBtn').disabled = true;
-    }
-  }
-
-  async function handleCheckout() {
-    if (!paymentIntentClientSecret) {
-      await initPayment();
-      if (!paymentIntentClientSecret) return;
-    }
-
-    document.getElementById('checkoutBtn').disabled = true;
-    document.getElementById('checkoutBtn').textContent = '⏳ Paiement en cours...';
-
-    try {
-      const { error } = await stripe.confirmCardPayment(paymentIntentClientSecret, {
-        payment_method: {
-          card: elements.getElement('payment'),
-          billing_details: {
-            name: 'Client StyleShop',
-          },
-        },
-      });
-
-      if (error) {
-        alert(`❌ Paiement échoué : ${error.message}`);
-        document.getElementById('checkoutBtn').disabled = false;
-        document.getElementById('checkoutBtn').textContent = '<i class="fas fa-lock"></i> Passer la commande';
-      } else {
-        alert('✅ Paiement réussi ! Merci pour votre commande.');
-        // Vider le panier
-        cart = [];
-        giftCode = null;
-        giftDiscount = 0;
-        updateCartBadge();
-        renderCart();
-        document.getElementById('payment-element').style.display = 'none';
-        document.getElementById('checkoutBtn').disabled = true;
-        document.getElementById('checkoutBtn').textContent = '<i class="fas fa-lock"></i> Passer la commande';
-        // Fermer le panier
-        toggleCart();
-        // Réinitialiser les éléments Stripe
-        elements = null;
-        paymentIntentClientSecret = null;
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Erreur lors de la confirmation du paiement.');
       document.getElementById('checkoutBtn').disabled = false;
-      document.getElementById('checkoutBtn').textContent = '<i class="fas fa-lock"></i> Passer la commande';
     }
-  }
 
-  // Lier le bouton checkout
-  document.getElementById('checkoutBtn').addEventListener('click', handleCheckout);
+    function updateCartBadge() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('cartCount').textContent = count;
+    }
 
-  // ---------- PAGE PRODUIT ----------
-  function showProductPage(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    currentProductId = productId;
-    document.getElementById('catalogView').classList.add('hidden');
-    document.getElementById('aboutPage').classList.remove('active');
-    document.getElementById('productPage').classList.add('active');
+    // ============================================================
+    //  STRIPE CHECKOUT (remplace Elements)
+    // ============================================================
+    // Plus de Stripe JS nécessaire (on redirige vers la page Stripe)
 
-    const detail = document.getElementById('productDetail');
-    const colors = product.variants?.couleur || [];
-    const defaultColor = colors.length > 0 ? colors[0] : null;
-    const defaultImages = defaultColor && product.images && product.images[defaultColor] ? product.images[defaultColor] : [];
-    const mainImage = defaultImages.length > 0 ? defaultImages[0] : '';
+    async function handleCheckout() {
+      const items = cart.map(item => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        variants: item.variants || {},
+      }));
 
-    const displayPrice = product.salePrice || product.price;
-    const hasSale = product.salePrice && product.salePrice < product.price;
-    const priceHtml = hasSale 
-      ? `<span class="sale">${product.salePrice.toFixed(2)} €</span><span class="old">${product.price.toFixed(2)} €</span>`
-      : `${product.price.toFixed(2)} €`;
+      const total = getCartTotal();
+      const finalTotal = getFinalTotal();
 
-    let variantHTML = '';
-    for (const [key, values] of Object.entries(product.variants || {})) {
-      if (key === 'couleur') {
-        const options = values.map(color => {
-          const hexColor = colorMap[color] || '#ccc';
-          return `<span class="color-option ${color === defaultColor ? 'active' : ''}" data-color="${color}" onclick="selectColorPage(this, '${color}', ${product.id})">
+      const btn = document.getElementById('checkoutBtn');
+      btn.disabled = true;
+      btn.innerHTML = '⏳ Redirection...';
+
+      try {
+        const response = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items, total, finalTotal }),
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+          // Rediriger vers Stripe Checkout
+          window.location.href = data.url;
+        } else {
+          alert('Erreur lors de la création de la session de paiement.');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-lock"></i> Passer la commande';
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Erreur de connexion au serveur de paiement.');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-lock"></i> Passer la commande';
+      }
+    }
+
+    // Lier le bouton checkout
+    document.getElementById('checkoutBtn').addEventListener('click', handleCheckout);
+
+    // ============================================================
+    //  PAGE PRODUIT (inchangée)
+    // ============================================================
+    function showProductPage(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      currentProductId = productId;
+      document.getElementById('catalogView').classList.add('hidden');
+      document.getElementById('aboutPage').classList.remove('active');
+      document.getElementById('productPage').classList.add('active');
+
+      const detail = document.getElementById('productDetail');
+      const colors = product.variants?.couleur || [];
+      const defaultColor = colors.length > 0 ? colors[0] : null;
+      const defaultImages = defaultColor && product.images && product.images[defaultColor] ? product.images[defaultColor] : [];
+      const mainImage = defaultImages.length > 0 ? defaultImages[0] : '';
+
+      const hasSale = product.salePrice && product.salePrice < product.price;
+      const priceHtml = hasSale ?
+        `<span class="sale">${product.salePrice.toFixed(2)} €</span><span class="old">${product.price.toFixed(2)} €</span>` :
+        `${product.price.toFixed(2)} €`;
+
+      let variantHTML = '';
+      for (const [key, values] of Object.entries(product.variants || {})) {
+        if (key === 'couleur') {
+          const options = values.map(color => {
+            const hexColor = colorMap[color] || '#ccc';
+            return `<span class="color-option ${color === defaultColor ? 'active' : ''}" data-color="${color}" onclick="selectColorPage(this, '${color}', ${product.id})">
             <span class="color-swatch" style="background-color: ${hexColor};"></span>
             ${color}
           </span>`;
-        }).join('');
-        variantHTML += `
+          }).join('');
+          variantHTML += `
           <div class="variant-group">
             <label>Couleur</label>
             <div class="variant-options" id="colorOptionsPage">${options}</div>
           </div>
         `;
-      } else {
-        const options = values.map(v => `<span class="${v === 'Unique' ? 'active' : ''}" onclick="selectSizePage(this, '${v}', ${product.id})">${v}</span>`).join('');
-        variantHTML += `
+        } else {
+          const options = values.map(v => `<span class="${v === 'Unique' ? 'active' : ''}" onclick="selectSizePage(this, '${v}', ${product.id})">${v}</span>`).join('');
+          variantHTML += `
           <div class="variant-group">
             <label>${key.charAt(0).toUpperCase() + key.slice(1)}</label>
             <div class="variant-options" id="sizeOptionsPage">${options}</div>
           </div>
         `;
+        }
       }
-    }
 
-    let stockClass = 'stock-badge';
-    if (product.stock <= 3 && product.stock > 0) stockClass += ' warning';
-    else if (product.stock === 0) stockClass += ' danger';
-    const stockLabel = product.stock > 0 ? `En stock (${product.stock})` : 'Rupture';
+      let stockClass = 'stock-badge';
+      if (product.stock <= 3 && product.stock > 0) stockClass += ' warning';
+      else if (product.stock === 0) stockClass += ' danger';
+      const stockLabel = product.stock > 0 ? `En stock (${product.stock})` : 'Rupture';
 
-    const isInCart = cart.find(item => item.id === product.id);
-    const btnText = isInCart ? '✓ Ajouté au panier' : 'Ajouter au panier';
-    const btnClass = isInCart ? 'btn-add-large added' : 'btn-add-large';
+      const isInCart = cart.find(item => item.id === product.id);
+      const btnText = isInCart ? '✓ Ajouté au panier' : 'Ajouter au panier';
+      const btnClass = isInCart ? 'btn-add-large added' : 'btn-add-large';
 
-    const thumbnails = defaultImages.map((img, idx) => 
-      `<img src="${img}" alt="Photo ${idx+1}" onclick="changeMainImagePage(this, '${img}')" class="${idx === 0 ? 'active' : ''}">`
-    ).join('');
+      const thumbnails = defaultImages.map((img, idx) =>
+        `<img src="${img}" alt="Photo ${idx+1}" onclick="changeMainImagePage(this, '${img}')" class="${idx === 0 ? 'active' : ''}">`
+      ).join('');
 
-    detail.innerHTML = `
+      detail.innerHTML = `
       <div class="gallery">
         <img src="${mainImage}" alt="${product.name}" class="main-image" id="mainImagePage">
         <div class="thumbnails" id="thumbnailsPage">${thumbnails || '<div style="color:#999;">Aucune photo disponible</div>'}</div>
         <div style="font-size:0.8rem; color:#7a6f5d; margin-top:0.3rem; text-align:center;">
-          <i class="fas fa-images"></i> 
+          <i class="fas fa-images"></i>
           <span id="imageCounterPage">1 / ${defaultImages.length || 1}</span>
         </div>
       </div>
@@ -2235,151 +2134,155 @@
       </div>
     `;
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // ---------- SÉLECTIONS PAGE PRODUIT ----------
-  window.selectColorPage = function(element, color, productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-
-    document.querySelectorAll('#colorOptionsPage .color-option').forEach(opt => opt.classList.remove('active'));
-    element.classList.add('active');
-
-    const images = product.images && product.images[color] ? product.images[color] : [];
-    const mainImg = document.getElementById('mainImagePage');
-    if (mainImg && images.length > 0) {
-      mainImg.src = images[0];
-      mainImg.classList.add('fade');
-      setTimeout(() => mainImg.classList.remove('fade'), 300);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    const thumbnailsContainer = document.getElementById('thumbnailsPage');
-    if (thumbnailsContainer) {
-      if (images.length > 0) {
-        thumbnailsContainer.innerHTML = images.map((img, idx) => 
-          `<img src="${img}" alt="Photo ${idx+1}" onclick="changeMainImagePage(this, '${img}')" class="${idx === 0 ? 'active' : ''}">`
-        ).join('');
-        const counter = document.getElementById('imageCounterPage');
-        if (counter) counter.textContent = `1 / ${images.length}`;
+    // ============================================================
+    //  SÉLECTIONS PAGE PRODUIT (inchangées)
+    // ============================================================
+    window.selectColorPage = function(element, color, productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      document.querySelectorAll('#colorOptionsPage .color-option').forEach(opt => opt.classList.remove('active'));
+      element.classList.add('active');
+
+      const images = product.images && product.images[color] ? product.images[color] : [];
+      const mainImg = document.getElementById('mainImagePage');
+      if (mainImg && images.length > 0) {
+        mainImg.src = images[0];
+        mainImg.classList.add('fade');
+        setTimeout(() => mainImg.classList.remove('fade'), 300);
+      }
+
+      const thumbnailsContainer = document.getElementById('thumbnailsPage');
+      if (thumbnailsContainer) {
+        if (images.length > 0) {
+          thumbnailsContainer.innerHTML = images.map((img, idx) =>
+            `<img src="${img}" alt="Photo ${idx+1}" onclick="changeMainImagePage(this, '${img}')" class="${idx === 0 ? 'active' : ''}">`
+          ).join('');
+          const counter = document.getElementById('imageCounterPage');
+          if (counter) counter.textContent = `1 / ${images.length}`;
+        } else {
+          thumbnailsContainer.innerHTML = '<div style="color:#999;">Aucune photo disponible</div>';
+          const counter = document.getElementById('imageCounterPage');
+          if (counter) counter.textContent = '0 / 0';
+        }
+      }
+
+      const tailleEl = document.querySelector('#sizeOptionsPage .active');
+      const taille = tailleEl ? tailleEl.textContent : (product.variants?.taille?.[0] || 'Unique');
+      const price = getVariantPrice(product, taille, color);
+      updateDetailPrice(product, price);
+    };
+
+    window.selectSizePage = function(element, taille, productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      document.querySelectorAll('#sizeOptionsPage span').forEach(opt => opt.classList.remove('active'));
+      element.classList.add('active');
+
+      const colorEl = document.querySelector('#colorOptionsPage .active');
+      const color = colorEl ? colorEl.dataset.color : (product.variants?.couleur?.[0] || 'Standard');
+      const price = getVariantPrice(product, taille, color);
+      updateDetailPrice(product, price);
+    };
+
+    function updateDetailPrice(product, price) {
+      const priceContainer = document.getElementById('productDetailPrice');
+      if (!priceContainer) return;
+      const hasSale = product.salePrice && product.salePrice < product.price;
+      if (hasSale) {
+        priceContainer.innerHTML = `<span class="sale">${price.toFixed(2)} €</span><span class="old">${product.price.toFixed(2)} €</span>`;
       } else {
-        thumbnailsContainer.innerHTML = '<div style="color:#999;">Aucune photo disponible</div>';
-        const counter = document.getElementById('imageCounterPage');
-        if (counter) counter.textContent = '0 / 0';
+        priceContainer.textContent = `${price.toFixed(2)} €`;
       }
     }
 
-    const tailleEl = document.querySelector('#sizeOptionsPage .active');
-    const taille = tailleEl ? tailleEl.textContent : (product.variants?.taille?.[0] || 'Unique');
-    const price = getVariantPrice(product, taille, color);
-    updateDetailPrice(product, price);
-  };
+    window.changeMainImagePage = function(element, src) {
+      const mainImg = document.getElementById('mainImagePage');
+      if (mainImg) {
+        mainImg.src = src;
+        mainImg.classList.add('fade');
+        setTimeout(() => mainImg.classList.remove('fade'), 300);
+        const thumbnails = document.querySelectorAll('#thumbnailsPage img');
+        const index = Array.from(thumbnails).indexOf(element) + 1;
+        const counter = document.getElementById('imageCounterPage');
+        if (counter) counter.textContent = `${index} / ${thumbnails.length}`;
+      }
+      document.querySelectorAll('#thumbnailsPage img').forEach(img => img.classList.remove('active'));
+      element.classList.add('active');
+    };
 
-  window.selectSizePage = function(element, taille, productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-
-    document.querySelectorAll('#sizeOptionsPage span').forEach(opt => opt.classList.remove('active'));
-    element.classList.add('active');
-
-    const colorEl = document.querySelector('#colorOptionsPage .active');
-    const color = colorEl ? colorEl.dataset.color : (product.variants?.couleur?.[0] || 'Standard');
-    const price = getVariantPrice(product, taille, color);
-    updateDetailPrice(product, price);
-  };
-
-  function updateDetailPrice(product, price) {
-    const priceContainer = document.getElementById('productDetailPrice');
-    if (!priceContainer) return;
-    const hasSale = product.salePrice && product.salePrice < product.price;
-    if (hasSale) {
-      priceContainer.innerHTML = `<span class="sale">${price.toFixed(2)} €</span><span class="old">${product.price.toFixed(2)} €</span>`;
-    } else {
-      priceContainer.textContent = `${price.toFixed(2)} €`;
+    // ============================================================
+    //  NAVIGATION (inchangée)
+    // ============================================================
+    function showCatalog() {
+      document.getElementById('productPage').classList.remove('active');
+      document.getElementById('aboutPage').classList.remove('active');
+      document.getElementById('catalogView').classList.remove('hidden');
+      document.querySelectorAll('.category-nav a').forEach(a => a.classList.remove('active'));
+      document.querySelector('.category-nav a[data-cat="all"]').classList.add('active');
+      currentCategory = 'all';
+      filteredProducts = [...products];
+      applySort();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }
 
-  window.changeMainImagePage = function(element, src) {
-    const mainImg = document.getElementById('mainImagePage');
-    if (mainImg) {
-      mainImg.src = src;
-      mainImg.classList.add('fade');
-      setTimeout(() => mainImg.classList.remove('fade'), 300);
-      
-      const thumbnails = document.querySelectorAll('#thumbnailsPage img');
-      const index = Array.from(thumbnails).indexOf(element) + 1;
-      const counter = document.getElementById('imageCounterPage');
-      if (counter) counter.textContent = `${index} / ${thumbnails.length}`;
+    function showAbout() {
+      document.getElementById('catalogView').classList.add('hidden');
+      document.getElementById('productPage').classList.remove('active');
+      document.getElementById('aboutPage').classList.add('active');
+      document.querySelectorAll('.category-nav a').forEach(a => a.classList.remove('active'));
+      document.querySelector('.category-nav a[data-cat="apropos"]').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    document.querySelectorAll('#thumbnailsPage img').forEach(img => img.classList.remove('active'));
-    element.classList.add('active');
-  };
 
-  // ---------- NAVIGATION ----------
-  function showCatalog() {
-    document.getElementById('productPage').classList.remove('active');
-    document.getElementById('aboutPage').classList.remove('active');
-    document.getElementById('catalogView').classList.remove('hidden');
-    document.querySelectorAll('.category-nav a').forEach(a => a.classList.remove('active'));
-    document.querySelector('.category-nav a[data-cat="all"]').classList.add('active');
-    currentCategory = 'all';
-    filteredProducts = [...products];
-    applySort();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+    // ============================================================
+    //  EXPOSITION GLOBALE
+    // ============================================================
+    window.openVariantModal = openVariantModal;
+    window.confirmVariantSelection = confirmVariantSelection;
+    window.closeVariantModal = closeVariantModal;
+    window.addToCartWithVariants = addToCartWithVariants;
+    window.removeFromCart = removeFromCart;
+    window.updateQuantity = updateQuantity;
+    window.applyGiftCode = applyGiftCode;
+    window.removeGiftCode = removeGiftCode;
+    window.selectColorPage = selectColorPage;
+    window.selectSizePage = selectSizePage;
+    window.changeMainImagePage = changeMainImagePage;
+    window.showCatalog = showCatalog;
+    window.showAbout = showAbout;
+    window.filterCategory = filterCategory;
+    window.applySort = applySort;
+    window.setView = setView;
+    window.toggleCart = toggleCart;
+    window.renderCart = renderCart;
+    window.handleCheckout = handleCheckout;
 
-  function showAbout() {
-    document.getElementById('catalogView').classList.add('hidden');
-    document.getElementById('productPage').classList.remove('active');
-    document.getElementById('aboutPage').classList.add('active');
-    document.querySelectorAll('.category-nav a').forEach(a => a.classList.remove('active'));
-    document.querySelector('.category-nav a[data-cat="apropos"]').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+    // ============================================================
+    //  INIT
+    // ============================================================
+    function init() {
+      renderCatalog();
+      updateCartBadge();
+      document.getElementById('viewGrid').classList.add('active');
+      document.getElementById('checkoutBtn').disabled = true;
+    }
 
-  // ---------- EXPOSITION GLOBALE ----------
-  window.openVariantModal = openVariantModal;
-  window.confirmVariantSelection = confirmVariantSelection;
-  window.closeVariantModal = closeVariantModal;
-  window.addToCartWithVariants = addToCartWithVariants;
-  window.removeFromCart = removeFromCart;
-  window.updateQuantity = updateQuantity;
-  window.applyGiftCode = applyGiftCode;
-  window.removeGiftCode = removeGiftCode;
-  window.selectColorPage = selectColorPage;
-  window.selectSizePage = selectSizePage;
-  window.changeMainImagePage = changeMainImagePage;
-  window.showCatalog = showCatalog;
-  window.showAbout = showAbout;
-  window.filterCategory = filterCategory;
-  window.applySort = applySort;
-  window.setView = setView;
-  window.toggleCart = toggleCart;
-  window.renderCart = renderCart;
-  window.initPayment = initPayment;
-  window.handleCheckout = handleCheckout;
+    init();
 
-  // ---------- INIT ----------
-  function init() {
-    renderCatalog();
-    updateCartBadge();
-    document.getElementById('viewGrid').classList.add('active');
-    document.getElementById('checkoutBtn').disabled = true;
-  }
+    console.log('✅ StyleShop - Paiement Stripe Checkout (redirection)');
+    console.log('📱 10 produits avec photos');
+    console.log('🛒 Prix variant selon taille/couleur');
+    console.log('🎁 Codes cadeau disponibles : JOYEUX2026, BIENVENUE, STYLE10, PROMO5');
+    console.log('💳 Redirection vers Stripe Checkout');
+  </script>
 
-  init();
-
-  console.log('✅ StyleShop - Paiement Stripe Elements intégré');
-  console.log('📱 10 produits avec photos');
-  console.log('🛒 Prix variant selon taille/couleur');
-  console.log('🎁 Codes cadeau disponibles : JOYEUX2026, BIENVENUE, STYLE10, PROMO5');
-  console.log('💳 Paiement sécurisé par carte bancaire (Stripe Elements)');
-</script>
-
-<div style="margin-top: 3rem; border-top: 1px solid #ddd6cb; padding-top: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; font-size:0.8rem; color:#5e5546;">
-  <span><i class="fas fa-hard-hat"></i> Ingénierie-Travaux · Expertise & qualité</span>
-  <span><i class="fas fa-store"></i> StyleShop · Avaux.vercel.app</span>
-</div>
+  <div style="margin-top: 3rem; border-top: 1px solid #ddd6cb; padding-top: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; font-size:0.8rem; color:#5e5546;">
+    <span><i class="fas fa-hard-hat"></i> Ingénierie-Travaux · Expertise & qualité</span>
+    <span><i class="fas fa-store"></i> StyleShop · Avaux.vercel.app</span>
+  </div>
 
 </body>
 </html>
