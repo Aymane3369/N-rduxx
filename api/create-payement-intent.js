@@ -1,37 +1,45 @@
 const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Important : sur Vercel, on exporte une fonction handler
 module.exports = async (req, res) => {
-  // Activer CORS pour les requêtes du frontend
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-    const { items, total, discount, finalTotal } = req.body;
+    const { items, total, finalTotal } = req.body;
 
-    const amount = Math.round(finalTotal * 100);
+    // Obtenir l'URL de base (pour les redirections)
+    const baseUrl = process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}`
+      : 'https://n-rduxx.vercel.app';
 
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount,
-      currency: 'eur',
+    // Créer la session Checkout
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: items.map(item => ({
+        price_data: {
+          currency: 'eur',
+          product_data: {
+            name: item.name,
+            description: Object.entries(item.variants || {}).map(([k, v]) => `${k}: ${v}`).join(', '),
+          },
+          unit_amount: Math.round(item.price * 100),
+        },
+        quantity: item.quantity,
+      })),
+      success_url: `${baseUrl}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/?cancel=true`,
       metadata: {
-        discount_applied: discount.toString(),
-        original_total: total.toString(),
         items_count: items.length.toString(),
+        total: total.toString(),
       },
     });
 
-    res.status(200).json({ clientSecret: paymentIntent.client_secret });
+    return res.status(200).json({ url: session.url });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
+    console.error('❌ Erreur Stripe:', error);
+    return res.status(500).json({ error: error.message });
   }
 };
