@@ -6,7 +6,7 @@
   <title>StyleShop · Ingénierie & Boutique</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    /* ========== TOUT VOTRE CSS EXISTANT ========== */
+    /* ========== TOUT VOTRE CSS EXISTANT (inchangé) ========== */
     * {
       margin: 0;
       padding: 0;
@@ -1989,30 +1989,43 @@
     }
 
     // ============================================================
-    //  STRIPE CHECKOUT (remplace Elements)
+    //  STRIPE CHECKOUT – Version adaptée à votre API
     // ============================================================
-    // Plus de Stripe JS nécessaire (on redirige vers la page Stripe)
-
     async function handleCheckout() {
+      // Vérifier que le panier n'est pas vide
+      if (cart.length === 0) {
+        alert('Votre panier est vide');
+        return;
+      }
+
+      // Construire les données pour l'API
       const items = cart.map(item => ({
-        name: item.name,
+        productId: item.id,
+        variantId: item.variants ? Object.values(item.variants).join('-') : null,
+        qty: item.quantity,
         price: item.price,
-        quantity: item.quantity,
-        variants: item.variants || {},
+        name: item.name
       }));
 
-      const total = getCartTotal();
-      const finalTotal = getFinalTotal();
+      const total = getFinalTotal();
 
       const btn = document.getElementById('checkoutBtn');
       btn.disabled = true;
       btn.innerHTML = '⏳ Redirection...';
 
       try {
+        // Appel à votre API Stripe Checkout
         const response = await fetch('/api/create-payment-intent', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items, total, finalTotal }),
+          body: JSON.stringify({
+            items: items,
+            total: total,
+            finalTotal: total,
+            // Ajoutez d'autres champs si votre API les attend
+            promoCode: giftCode || null,
+            discount: giftDiscount || 0
+          })
         });
 
         const data = await response.json();
@@ -2020,21 +2033,25 @@
         if (data.url) {
           // Rediriger vers Stripe Checkout
           window.location.href = data.url;
+        } else if (data.clientSecret) {
+          // Fallback si votre API renvoie clientSecret (Elements)
+          // On redirige vers une page Stripe Checkout simulée ? 
+          // Normalement votre API doit renvoyer url
+          alert('Erreur: format de réponse inattendu');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-lock"></i> Passer la commande';
         } else {
           alert('Erreur lors de la création de la session de paiement.');
           btn.disabled = false;
           btn.innerHTML = '<i class="fas fa-lock"></i> Passer la commande';
         }
       } catch (error) {
-        console.error(error);
+        console.error('Erreur paiement:', error);
         alert('Erreur de connexion au serveur de paiement.');
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-lock"></i> Passer la commande';
       }
     }
-
-    // Lier le bouton checkout
-    document.getElementById('checkoutBtn').addEventListener('click', handleCheckout);
 
     // ============================================================
     //  PAGE PRODUIT (inchangée)
@@ -2260,6 +2277,9 @@
     window.renderCart = renderCart;
     window.handleCheckout = handleCheckout;
 
+    // Lier le bouton checkout
+    document.getElementById('checkoutBtn').addEventListener('click', handleCheckout);
+
     // ============================================================
     //  INIT
     // ============================================================
@@ -2272,7 +2292,7 @@
 
     init();
 
-    console.log('✅ StyleShop - Paiement Stripe Checkout (redirection)');
+    console.log('✅ StyleShop - Stripe Checkout (redirection)');
     console.log('📱 10 produits avec photos');
     console.log('🛒 Prix variant selon taille/couleur');
     console.log('🎁 Codes cadeau disponibles : JOYEUX2026, BIENVENUE, STYLE10, PROMO5');
