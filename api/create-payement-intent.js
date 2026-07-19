@@ -9,12 +9,10 @@ module.exports = async (req, res) => {
   try {
     const { items, total, finalTotal } = req.body;
 
-    // Obtenir l'URL de base (pour les redirections)
     const baseUrl = process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}`
       : 'https://n-rduxx.vercel.app';
 
-    // Créer la session Checkout
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
